@@ -1,8 +1,10 @@
 package com.artlite.skd.chips.facade.managers
 
 import com.artlite.skd.chips.facade.abs.AbsLifecycle
+import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
+import com.artlite.skd.chips.impl.models.ChipsModel
 
 /**
  * Class which provide the chip managements functional.
@@ -10,25 +12,26 @@ import com.artlite.skd.chips.impl.models.ChipSectionModel
 interface ChipsManager: AbsLifecycle {
 
     /**
-     * Method which provide to get the [ChipSectionModel].
+     * Method which provide to get of the [ChipsModel].
      * @param it ChipFilterModel instance.
-     * @param default ChipSectionModel instance.
-     * @return ChipSectionModel instance.
+     * @param default ChipsModel instance.
+     * @return ChipsModel instance
      */
-    fun get(it: ChipFilterModel, default: ChipSectionModel): ChipSectionModel
+    fun get(it: ChipFilterModel, default: ChipsModel): ChipsModel
 
     /**
-     * Method which provide to get the [ChipSectionModel].
-     * @param it String value.
-     * @param default ChipSectionModel instance.
-     * @return ChipSectionModel instance.
+     * Method which provide to set of the [ChipSectionModel].
+     * @param it ChipFilterModel instance.
+     * @param items ChipsModel instance.
+     * @return Boolean if it was set.
      */
-    fun get(it: String, default: ChipSectionModel): ChipSectionModel
+    fun set(it: ChipFilterModel, items: ChipsModel): Boolean
 
     /**
-     * Method which provide to get the last search model.
-     * @return ChipSectionModel? instance.
+     * Method which provide to subscribe for the notifications.
+     * @param filter ChipFilterModel instance.
+     * @param delegate ChipsUpdate instance.
      */
-    fun getLast(): ChipSectionModel?
+    fun subscribe(filter: ChipFilterModel, delegate: SdkChipsCallbacks.ChipsUpdate)
 
 }

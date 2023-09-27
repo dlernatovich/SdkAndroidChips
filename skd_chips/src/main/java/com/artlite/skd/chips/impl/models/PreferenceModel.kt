@@ -73,7 +73,7 @@ internal class PreferenceModel {
      * Used to retrieve object from the Preferences.
      * @param key Shared Preference key with which object was saved.
      **/
-    inline fun <reified T: Identifiable> get(key: String = defaultKey): T? {
+    inline fun <reified T> get(key: String = defaultKey): T? {
         var it = preferences.getString(key, null) ?: return null
         if (base64Formatted) {
             it = String(Base64.decode(it.toByteArray(), Base64.NO_WRAP))

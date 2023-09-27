@@ -2,9 +2,11 @@ package com.artlite.skd.chips.impl.managers
 
 import android.app.Application
 import android.content.Context
+import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.facade.managers.ChipsManager
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
+import com.artlite.skd.chips.impl.models.ChipsModel
 import com.artlite.skd.chips.impl.models.PreferenceModel
 import java.lang.ref.WeakReference
 
@@ -19,11 +21,12 @@ internal object ChipsManagerImpl : ChipsManager {
     /** Instance of the [Application]. */
     private val app: Application get() = appRef?.get()!!
 
-    /** [String] value of the last search ID. */
-    private var lastSearchId: String? = null
-
     /** Search [Map]. */
     private val searchMap: MutableMap<String, PreferenceModel> = mutableMapOf()
+
+    /** Notifications [Map]. */
+    private val notificationMap: MutableMap<String, WeakReference<SdkChipsCallbacks.ChipsUpdate>> =
+        mutableMapOf()
 
     /**
      * Method which provide the create functional.
@@ -39,48 +42,54 @@ internal object ChipsManagerImpl : ChipsManager {
      */
     override fun onDestroy() {
         appRef = null
+        searchMap.clear()
+        notificationMap.clear()
     }
 
     /**
-     * Method which provide to get the [ChipSectionModel].
+     * Method which provide to get of the [ChipsModel].
      * @param it ChipFilterModel instance.
-     * @param default ChipSectionModel instance.
-     * @return ChipSectionModel instance.
+     * @param default ChipsModel instance.
+     * @return ChipsModel instance
      */
-    override fun get(it: ChipFilterModel, default: ChipSectionModel): ChipSectionModel =
-        get(it.id, default)
-
-    /**
-     * Method which provide to get the [ChipSectionModel].
-     * @param it String value.
-     * @param default ChipSectionModel instance.
-     * @return ChipSectionModel instance.
-     */
-    override fun get(it: String, default: ChipSectionModel): ChipSectionModel =
-        when(val pref = searchMap[it]) {
+    override fun get(it: ChipFilterModel, default: ChipsModel): ChipsModel =
+        when(val pref = searchMap[it.id]) {
             null -> {
-                searchMap[it] = PreferenceModel(app, it, true)
+                searchMap[it.id] = PreferenceModel(app, it, true)
                 get(it, default)
             }
-            else -> when(val model = pref.get<ChipSectionModel>()) {
+            else -> when(val model = pref.get<ChipsModel>()) {
                 null -> {
                     pref.set(default)
                     get(it, default)
                 }
-                else -> {
-                    lastSearchId = it
-                    model
-                }
+                else -> model
             }
         }
 
     /**
-     * Method which provide to get the last search model.
-     * @return ChipSectionModel? instance.
+     * Method which provide to set of the [ChipSectionModel].
+     * @param it ChipFilterModel instance.
+     * @param items ChipsModel instance.
+     * @return Boolean if it was set.
      */
-    override fun getLast(): ChipSectionModel? = when(lastSearchId) {
-        null -> null
-        else -> searchMap[lastSearchId!!]?.get()
-    }
+    override fun set(it: ChipFilterModel, items: ChipsModel): Boolean =
+        when(val pref = searchMap[it.id]) {
+            null -> false
+            else -> {
+                pref.set(items)
+                notificationMap[it.id]?.get()?.onChipsUpdate(it, items)
+                true
+            }
+        }
 
+
+    /**
+     * Method which provide to subscribe for the notifications.
+     * @param filter ChipFilterModel instance.
+     * @param delegate ChipsUpdate instance.
+     */
+    override fun subscribe(filter: ChipFilterModel, delegate: SdkChipsCallbacks.ChipsUpdate) {
+        this.notificationMap[filter.id] = WeakReference(delegate)
+    }
 }

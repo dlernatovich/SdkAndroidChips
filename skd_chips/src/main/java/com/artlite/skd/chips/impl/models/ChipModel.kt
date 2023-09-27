@@ -55,4 +55,11 @@ class ChipModel(
         return id.hashCode()
     }
 
+    /**
+     * Method which provide to switch selected.
+     */
+    fun switchSelected() {
+        this.isSelected = !isSelected
+    }
+
 }
