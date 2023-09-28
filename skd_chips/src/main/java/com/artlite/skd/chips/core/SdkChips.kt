@@ -6,12 +6,14 @@ import com.artlite.skd.chips.facade.helpers.Base64Helper
 import com.artlite.skd.chips.facade.managers.ActivityManager
 import com.artlite.skd.chips.facade.managers.ChipsManager
 import com.artlite.skd.chips.facade.managers.ContextManager
+import com.artlite.skd.chips.facade.managers.HapticManager
 import com.artlite.skd.chips.facade.managers.TestingManager
 import com.artlite.skd.chips.impl.helpers.Base64HelperImpl
 import com.artlite.skd.chips.impl.managers.ActivityManagerImpl
 import com.artlite.skd.chips.impl.managers.ContextManagerImpl
 import com.artlite.skd.chips.impl.managers.TestingManagerImpl
 import com.artlite.skd.chips.impl.managers.ChipsManagerImpl
+import com.artlite.skd.chips.impl.managers.HapticManagerImpl
 
 /**
  * Object which provide the chip sdk configuration.
@@ -52,7 +54,8 @@ object SdkChips : AbsLifecycle {
         internal val context: ContextManager get() = ContextManagerImpl
         internal val test: TestingManager get() = TestingManagerImpl
         val chips: ChipsManager get() = ChipsManagerImpl
-        internal val managers get() = listOf(activity, context, chips, test)
+        internal val haptic: HapticManager get() = HapticManagerImpl
+        internal val managers get() = listOf(activity, context, chips, haptic, test)
     }
 
 }
