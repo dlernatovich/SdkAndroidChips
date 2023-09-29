@@ -36,3 +36,24 @@ data class ChipsModel(
     }
 
 }
+
+/**
+ * Method which provide to get chips functional.
+ * @receiver ChipsModel receiver.
+ * @return List<ChipModel> list of chips model.
+ */
+fun ChipsModel.getChips(): List<ChipModel> = mutableListOf<ChipModel>().also { result ->
+    sections.forEach { section -> result.addAll(section.chips) }
+}
+
+/**
+ * Method which provide to update of the chip model.
+ * @receiver ChipsModel receiver.
+ * @param it Array<out ChipModel> array of the [ChipModel].
+ */
+fun ChipsModel.update(vararg it: ChipModel) {
+    val allChip = getChips()
+    it.forEach { chip ->
+        allChip.firstOrNull { item -> item.id == chip.id }?.isSelected = chip.isSelected
+    }
+}

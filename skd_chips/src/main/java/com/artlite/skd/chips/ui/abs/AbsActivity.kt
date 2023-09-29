@@ -27,6 +27,7 @@ abstract class AbsActivity(@LayoutRes private val layout: Int): AppCompatActivit
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
         setContentView(layout)
+        this.hideActionBar()
         this.main { onActivityCreated(bundle) }
     }
 
@@ -78,5 +79,10 @@ abstract class AbsActivity(@LayoutRes private val layout: Int): AppCompatActivit
      * Method which provide to play haptic.
      */
     protected fun playHaptic() = SdkChips.Managers.haptic.playHaptic()
+
+    /** Hide action bar functionality. */
+    fun hideActionBar() {
+        if (this.actionBar != null) this.actionBar?.hide() else this.supportActionBar?.hide()
+    }
 
 }

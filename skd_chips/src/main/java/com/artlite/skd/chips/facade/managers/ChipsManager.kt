@@ -14,6 +14,13 @@ interface ChipsManager: AbsLifecycle {
     /**
      * Method which provide to get of the [ChipsModel].
      * @param it ChipFilterModel instance.
+     * @return ChipsModel instance
+     */
+    fun get(it: ChipFilterModel): ChipsModel?
+
+    /**
+     * Method which provide to get of the [ChipsModel].
+     * @param it ChipFilterModel instance.
      * @param default ChipsModel instance.
      * @return ChipsModel instance
      */

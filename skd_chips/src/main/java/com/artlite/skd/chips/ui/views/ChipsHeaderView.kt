@@ -2,14 +2,19 @@ package com.artlite.skd.chips.ui.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.children
 import com.artlite.skd.chips.core.SdkChips
 import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.facade.models.Configurable
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipsModel
+import com.artlite.skd.chips.impl.models.getSelectedCount
 import com.artlite.skd.chips.ui.abs.AbsView
+import com.artlite.skd.chips.ui.activities.FilterActivity
+import com.artlite.skd.chips.ui.activities.show
 import com.artlite.skd.ships.R
 import com.google.android.flexbox.FlexboxLayout
 import java.time.Duration
@@ -35,6 +40,8 @@ class ChipsHeaderView @JvmOverloads constructor(
 
     /** Instance of the [FlexboxLayout]. */
     private val viewFlexBox: FlexboxLayout by lazy { find(R.id.sdk_chips_flexbox_view) }
+
+    private val viewItemFilter by lazy { ItemFilterView(context) }
 
     /** Get layout ID functional. */
     override fun getLayoutId(): Int = R.layout.view_sdk_chips_header
@@ -65,18 +72,49 @@ class ChipsHeaderView @JvmOverloads constructor(
     override fun onChipsUpdate(filter: ChipFilterModel, chips: ChipsModel) =
         when(viewFlexBox.childCount) {
             0 -> {
+                this.viewItemFilter.setOnClickListener(onFilterClicked)
+                this.viewFlexBox.addView(viewItemFilter)
                 chips.sections.forEach {
-                    val chip = AppCompatTextView(context)
-                    chip.text = it.text.toString() + "|"
-                    chip.setOnClickListener { view ->
-                        Toast.makeText(context, it.text.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                    viewFlexBox.addView(chip)
+                    val view = ItemSectionView(context)
+                    view.configure(it)
+                    view.setOnClickListener(onSectionClicked)
+                    viewFlexBox.addView(view)
                 }
             }
             else -> {
 
             }
+        }.also { onUpdateVisibility() }
+
+    /**
+     * Method which provide the visibility.
+     */
+    private fun onUpdateVisibility() {
+        this.viewFlexBox.children.forEach {
+            val view = it as? ItemSectionView
+            val model = view?.section
+            val selectedCount = model?.getSelectedCount() ?: 0
+            if (selectedCount > 0){
+                view?.visibility = VISIBLE
+            } else {
+                view?.visibility = GONE
+            }
         }
+    }
+
+    /**
+     * On filter clicked functional.
+     */
+    private val onFilterClicked = OnClickListener {
+        playHaptic()
+        FilterActivity.show(filter)
+    }
+
+    /**
+     * On filter clicked functional.
+     */
+    private val onSectionClicked = OnClickListener {
+
+    }
 
 }

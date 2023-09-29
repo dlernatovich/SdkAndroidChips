@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+
+            <!-- Shadow -->
+            <item>
+                <shape>
+                    <padding android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="0dp" />
+                    <solid android:color="?android:shadowColor" />
+                    <corners android:radius="@dimen/dimen_4" />
+                </shape>
+            </item>
+
+            <!-- Background -->
+            <item>
+                <shape>
+                    <solid android:color="@color/sdk_chips_color_main_items" />
+                    <corners android:radius="@dimen/dimen_4" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+</selector>

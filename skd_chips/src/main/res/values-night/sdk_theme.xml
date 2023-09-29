@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.SDK.Chips" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/sdk_chip_main</item>
+        <item name="colorPrimaryVariant">@color/sdk_chips_background</item>
+        <item name="colorOnPrimary">@android:color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sdk_chip_main</item>
+        <item name="colorSecondaryVariant">@color/sdk_chip_teal_200</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="ThemeOverlay.SDK.Chips.App.BottomAppBar" parent="">
+        <item name="colorPrimary">#2c2c2c</item>
+        <item name="colorControlNormal">@color/sdk_chip_main</item>
+        <item name="rippleColor">@color/sdk_chip_main</item>
+    </style>
+
+    <style name="Widget.SDK.Chips.App.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.SDK.Chips.App.BottomAppBar</item>
+        <item name="backgroundTint">#E62C2C2C</item>
+        <item name="fabCradleMargin">@dimen/dimen_8</item>
+    </style>
+
+</resources>

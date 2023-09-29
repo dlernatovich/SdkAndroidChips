@@ -56,3 +56,18 @@ class ChipSectionModel(
     }
 
 }
+
+/**
+ * Method which provide to clear selected items.
+ * @receiver ChipSectionModel
+ */
+fun ChipSectionModel.clearSelected() = chips.forEach {
+    it.isSelected = false
+}
+
+/**
+ * Method which provide to get the selected count value.
+ * @receiver ChipSectionModel receiver.
+ * @return Int value of the selected count.
+ */
+fun ChipSectionModel.getSelectedCount(): Int = chips.count { it.isSelected }

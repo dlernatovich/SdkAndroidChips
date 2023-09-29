@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--HEADER-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_8"
+            android:layout_marginVertical="@dimen/dimen_8"
+            android:background="@drawable/drawable_sdk_chips_material_card_4">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelHeaderText"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_20"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/dimen_4"
+                android:layout_marginBottom="@dimen/dimen_4"
+                android:gravity="center"
+                android:text="@string/text_tags"
+                android:textColor="@color/sdk_chip_main"
+                android:textSize="@dimen/text_12" />
+        </FrameLayout>
+
+        <!--CONTENT-->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/dimen_8"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="@dimen/dimen_4"
+            app:cardElevation="0dp"
+            app:cardForegroundColor="@android:color/transparent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_86"
+                    android:background="@drawable/drawable_sdk_chips_material_card_4">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_1000" />
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        style="@style/Widget.SDK.Chips.App.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/dimen_30"
+        app:fabAlignmentMode="end"
+        app:fabCradleMargin="@dimen/dimen_8" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_action"
+        style="@style/ThemeOverlay.SDK.Chips.App.BottomAppBar.Button.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/bottomAppBar"
+        app:srcCompat="@drawable/ic_sdk_chips_xmark" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

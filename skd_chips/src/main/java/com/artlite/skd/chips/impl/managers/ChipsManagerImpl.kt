@@ -49,6 +49,13 @@ internal object ChipsManagerImpl : ChipsManager {
     /**
      * Method which provide to get of the [ChipsModel].
      * @param it ChipFilterModel instance.
+     * @return ChipsModel instance
+     */
+    override fun get(it: ChipFilterModel): ChipsModel? = searchMap[it.id]?.get()
+
+    /**
+     * Method which provide to get of the [ChipsModel].
+     * @param it ChipFilterModel instance.
      * @param default ChipsModel instance.
      * @return ChipsModel instance
      */
