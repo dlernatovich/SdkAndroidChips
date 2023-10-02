@@ -14,7 +14,7 @@ object ChipsConstants {
     /**
      * Instance of the [ChipFilterModel].
      */
-    val filter = ChipFilterModel("1.0.4", null, "192.168.0.0", "8080")
+    val filter = ChipFilterModel("1.0.5", null, "192.168.0.0", "8080")
 
     /**
      * Instance of the [ChipsModel].
