@@ -14,7 +14,7 @@ object ChipsConstants {
     /**
      * Instance of the [ChipFilterModel].
      */
-    val filter = ChipFilterModel("1.0.2", null, "192.168.0.0", "8080")
+    val filter = ChipFilterModel("1.0.4", null, "192.168.0.0", "8080")
 
     /**
      * Instance of the [ChipsModel].
@@ -23,34 +23,19 @@ object ChipsConstants {
         sections = listOf(
             ChipSectionModel(
                 icon = null,
-                text = android.R.string.paste_as_plain_text,
+                text = R.string.text_type,
                 chips = setOf(
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
+                    ChipModel(R.drawable.ic_settings_box, R.string.text_box, "1.0.0"),
+                    ChipModel(R.drawable.ic_settings_file, R.string.text_file, "1.0.0"),
+                    ChipModel(R.drawable.ic_settings_doc, R.string.text_doc, "1.0.0"),
                 )
             ),
             ChipSectionModel(
                 icon = null,
-                text = android.R.string.paste_as_plain_text,
+                text = R.string.text_schedule,
                 chips = setOf(
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
-                )
-            ),
-            ChipSectionModel(
-                icon = null,
-                text = android.R.string.paste_as_plain_text,
-                chips = setOf(
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
-                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
+                    ChipModel(R.drawable.round_calendar_month_24, R.string.text_last_month, "1.0.0"),
+                    ChipModel(R.drawable.round_badge_24, R.string.text_assigned, "1.0.0"),
                 )
             ),
         )

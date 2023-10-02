@@ -99,9 +99,9 @@ internal class ItemChipView @JvmOverloads constructor(
             this.iChip.visibility = VISIBLE
         }
         if (it.isSelected) {
-            vContainer.setBackgroundColor(ResourcesCompat.getColor(context.resources, R.color.sdk_chip_main_10, null))
+            vContainer.setCardBackgroundColor(ResourcesCompat.getColor(context.resources, R.color.sdk_chip_main_10, null))
         } else {
-            vContainer.setBackgroundColor(ResourcesCompat.getColor(context.resources, android.R.color.transparent, null))
+            vContainer.setCardBackgroundColor(ResourcesCompat.getColor(context.resources, android.R.color.transparent, null))
         }
     }
 

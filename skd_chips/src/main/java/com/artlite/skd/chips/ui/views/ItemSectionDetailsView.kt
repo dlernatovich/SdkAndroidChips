@@ -16,6 +16,7 @@ import com.artlite.skd.chips.impl.managers.ChipsManagerImpl
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
+import com.artlite.skd.chips.impl.models.clearSelected
 import com.artlite.skd.chips.impl.models.getSelectedCount
 import com.artlite.skd.chips.ui.abs.AbsView
 import com.artlite.skd.ships.R
@@ -74,6 +75,7 @@ internal class ItemSectionDetailsView @JvmOverloads constructor(
     private fun onApplyInterface(it: ChipSectionModel) {
         val selectedCount = it.getSelectedCount()
         this.vHeader.setOnClickListener(this)
+        this.bDelete.setOnClickListener(this)
         this.lHeader.text = it.getTextString()
         this.iArrow.setImageDrawable(getArrow(it))
         if (it.isExpanded) {
@@ -120,6 +122,12 @@ internal class ItemSectionDetailsView @JvmOverloads constructor(
     override fun onClick(it: View?) = when (it?.id) {
         R.id.view_header -> {
             section.switchExpanded()
+            ChipsManagerImpl.update(filter, section)
+            configure(filter, section)
+        }
+
+        R.id.image_delete -> {
+            section.clearSelected()
             ChipsManagerImpl.update(filter, section)
             configure(filter, section)
         }

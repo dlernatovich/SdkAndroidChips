@@ -65,8 +65,11 @@ fun ChipsModel.update(vararg it: ChipModel) {
  */
 fun ChipsModel.update(vararg it: ChipSectionModel) {
     it.forEach { section ->
-        sections.firstOrNull {
-                item -> item.id == section.id
-        }?.isExpanded = section.isExpanded
+        val item = sections.firstOrNull { item -> item.id == section.id }
+        item?.isExpanded = section.isExpanded
+        item?.chips?.forEachIndexed { index, chip ->
+            val updatedChip = section.chips.firstOrNull { it1 -> it1.id == chip.id }
+            if (updatedChip != null) chip.isSelected = updatedChip.isSelected
+        }
     }
 }

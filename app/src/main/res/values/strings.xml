@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SdkChipWorkspaceAndroid</string>
+    <string name="text_type">Type</string>
+    <string name="text_box">Box</string>
+    <string name="text_file">File</string>
+    <string name="text_doc">Document</string>
+    <string name="text_schedule">Schedule</string>
+    <string name="text_last_month">Last Month</string>
+    <string name="text_assigned">Assigned</string>
 </resources>

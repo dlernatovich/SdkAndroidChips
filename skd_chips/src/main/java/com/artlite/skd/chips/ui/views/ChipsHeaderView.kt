@@ -9,9 +9,12 @@ import androidx.core.view.children
 import com.artlite.skd.chips.core.SdkChips
 import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.facade.models.Configurable
+import com.artlite.skd.chips.impl.managers.ChipsManagerImpl
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipsModel
+import com.artlite.skd.chips.impl.models.clearSelected
 import com.artlite.skd.chips.impl.models.getSelectedCount
+import com.artlite.skd.chips.impl.models.update
 import com.artlite.skd.chips.ui.abs.AbsView
 import com.artlite.skd.chips.ui.activities.FilterActivity
 import com.artlite.skd.chips.ui.activities.show
@@ -69,7 +72,7 @@ class ChipsHeaderView @JvmOverloads constructor(
      * @param filter ChipFilterModel instance.
      * @param chips ChipsModel instance.
      */
-    override fun onChipsUpdate(filter: ChipFilterModel, chips: ChipsModel) =
+    override fun onChipsUpdate(filter: ChipFilterModel, chips: ChipsModel): Unit =
         when(viewFlexBox.childCount) {
             0 -> {
                 this.viewItemFilter.setOnClickListener(onFilterClicked)
@@ -117,7 +120,14 @@ class ChipsHeaderView @JvmOverloads constructor(
      * On filter clicked functional.
      */
     private val onSectionClicked = OnClickListener {
-
+        val view = (it as? ItemSectionView)
+        val model = view?.section
+        if (model != null) {
+            model.clearSelected()
+            items.update(model)
+            ChipsManagerImpl.update(filter, items)
+            onChipsUpdate(filter, items)
+        }
     }
 
 }
