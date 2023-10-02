@@ -82,7 +82,10 @@ class ChipsHeaderView @JvmOverloads constructor(
                 }
             }
             else -> {
-
+                this.items = chips
+                chips.sections.forEachIndexed { index, model ->
+                    (viewFlexBox.getChildAt(index + 1) as? ItemSectionView)?.configure(model)
+                }
             }
         }.also { onUpdateVisibility() }
 

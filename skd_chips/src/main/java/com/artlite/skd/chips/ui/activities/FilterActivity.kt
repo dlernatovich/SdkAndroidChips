@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.LinearLayout
+import androidx.appcompat.widget.AppCompatTextView
 import com.artlite.skd.chips.core.SdkChips
+import com.artlite.skd.chips.facade.models.getTextString
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipsModel
 import com.artlite.skd.chips.ui.abs.AbsActivity
+import com.artlite.skd.chips.ui.views.ItemSectionDetailsView
 import com.artlite.skd.ships.R
 
 /**
@@ -21,8 +25,10 @@ internal class FilterActivity: AbsActivity(R.layout.activity_sdk_chips_filter) {
      */
     private lateinit var chips: ChipsModel
 
-    /** Action view. */
+    /** Instance of the [View]. */
     private val vAction by lazy { findViewById<View>(R.id.button_action) }
+    /** Instance of the [LinearLayout]. */
+    private val vItems by lazy { findViewById<LinearLayout>(R.id.view_items) }
 
     /**
      * Method which provide the activity created functional.
@@ -48,6 +54,22 @@ internal class FilterActivity: AbsActivity(R.layout.activity_sdk_chips_filter) {
     private fun onInitInterface(it: ChipsModel) {
         this.vAction.setOnClickListener(onCloseClicked)
         this.chips = it
+        this.onApplyInterface(it)
+    }
+
+    /**
+     * Method which provide the apply interface.
+     * @param it ChipsModel instance.
+     */
+    private fun onApplyInterface(it: ChipsModel) = when(vItems.childCount) {
+        0 -> it.sections.forEach { item ->
+            val itemView = ItemSectionDetailsView(this)
+            itemView.configure(Container.filter!!, item)
+            vItems.addView(itemView)
+        }
+        else -> {
+
+        }
     }
 
     /**

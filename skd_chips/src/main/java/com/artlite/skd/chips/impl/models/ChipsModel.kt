@@ -57,3 +57,16 @@ fun ChipsModel.update(vararg it: ChipModel) {
         allChip.firstOrNull { item -> item.id == chip.id }?.isSelected = chip.isSelected
     }
 }
+
+/**
+ * Method which provide to update of the chip section model.
+ * @receiver ChipModel receiver.
+ * @param it Array<out ChipSectionModel> items.
+ */
+fun ChipsModel.update(vararg it: ChipSectionModel) {
+    it.forEach { section ->
+        sections.firstOrNull {
+                item -> item.id == section.id
+        }?.isExpanded = section.isExpanded
+    }
+}

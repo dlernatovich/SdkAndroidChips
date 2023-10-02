@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_8"
+    android:background="@drawable/drawable_sdk_chips_material_card"
+    android:paddingHorizontal="@dimen/dimen_8"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dimen_8"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_8"
+            android:text="Header"
+            android:textColor="@color/sdk_chip_black_to_white"
+            android:textSize="@dimen/text_18"
+            tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_count"
+            android:gravity="center"
+            android:minWidth="@dimen/dimen_25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_sdk_chips_badge"
+            android:paddingHorizontal="@dimen/dimen_4"
+            android:paddingVertical="@dimen/dimen_2"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_12"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_delete"
+            android:layout_width="@dimen/dimen_35"
+            android:layout_height="@dimen/dimen_20"
+            android:src="@drawable/ic_sdk_chips_delete"
+            android:tint="@color/sdk_chip_main" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_arrow"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
+            android:src="@drawable/ic_sdk_chips_arrow_right"
+            android:tint="@color/sdk_chip_main" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/view_expanded"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/sdk_chips_flexbox_sub_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_4"
+            android:layout_marginBottom="@dimen/dimen_8"
+            app:flexWrap="wrap" />
+
+    </LinearLayout>
+
+</LinearLayout>

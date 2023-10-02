@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_container"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dimen_35"
+    android:layout_marginHorizontal="@dimen/dimen_4"
+    android:layout_marginVertical="@dimen/dimen_4"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/sdk_chip_main_10"
+    app:cardCornerRadius="@dimen/dimen_8"
+    app:cardElevation="0dp"
+    app:cardForegroundColor="@color/sdk_chip_main_background"
+    app:rippleColor="@color/sdk_chip_main_10"
+    app:strokeColor="@color/sdk_chip_main"
+    app:strokeWidth="@dimen/dimen_1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/dimen_8"
+        android:layout_marginVertical="@dimen/dimen_4"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_chip"
+            android:layout_width="@dimen/dimen_25"
+            android:layout_height="@dimen/dimen_25"
+            android:layout_marginEnd="@dimen/dimen_4"
+            android:src="@drawable/ic_sdk_chips_filter"
+            android:tint="@color/sdk_chip_main"
+            android:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_4"
+            android:text="Section"
+            android:textColor="@color/sdk_chip_main"
+            android:textSize="@dimen/text_14"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

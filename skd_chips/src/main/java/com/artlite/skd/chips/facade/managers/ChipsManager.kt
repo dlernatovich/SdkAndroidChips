@@ -3,6 +3,7 @@ package com.artlite.skd.chips.facade.managers
 import com.artlite.skd.chips.facade.abs.AbsLifecycle
 import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.impl.models.ChipFilterModel
+import com.artlite.skd.chips.impl.models.ChipModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
 import com.artlite.skd.chips.impl.models.ChipsModel
 
@@ -33,6 +34,30 @@ interface ChipsManager: AbsLifecycle {
      * @return Boolean if it was set.
      */
     fun set(it: ChipFilterModel, items: ChipsModel): Boolean
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipsModel instance.
+     * @return if it was updated.
+     */
+    fun update(it: ChipFilterModel, model: ChipsModel): Boolean
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipSectionModel instance.
+     * @return if it was updated.
+     */
+    fun update(it: ChipFilterModel, model: ChipSectionModel): Boolean
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipModel instance.
+     * @return if it was updated.
+     */
+    fun update(it: ChipFilterModel, model: ChipModel): Boolean
 
     /**
      * Method which provide to subscribe for the notifications.

@@ -5,9 +5,11 @@ import android.content.Context
 import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
 import com.artlite.skd.chips.facade.managers.ChipsManager
 import com.artlite.skd.chips.impl.models.ChipFilterModel
+import com.artlite.skd.chips.impl.models.ChipModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
 import com.artlite.skd.chips.impl.models.ChipsModel
 import com.artlite.skd.chips.impl.models.PreferenceModel
+import com.artlite.skd.chips.impl.models.update
 import java.lang.ref.WeakReference
 
 /**
@@ -85,8 +87,64 @@ internal object ChipsManagerImpl : ChipsManager {
             null -> false
             else -> {
                 pref.set(items)
-                notificationMap[it.id]?.get()?.onChipsUpdate(it, items)
+                notifyUpdate(it, items)
                 true
+            }
+        }
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipsModel instance.
+     * @return if it was updated.
+     */
+    override fun update(it: ChipFilterModel, model: ChipsModel): Boolean =
+        when(val pref = searchMap[it.id]) {
+            null -> false
+            else -> {
+                pref.set(model)
+                notifyUpdate(it, model)
+                true
+            }
+        }
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipSectionModel instance.
+     * @return if it was updated.
+     */
+    override fun update(it: ChipFilterModel, model: ChipSectionModel): Boolean =
+        when(val pref = searchMap[it.id]) {
+            null -> false
+            else -> when(val chips = pref.get<ChipsModel>()) {
+                null -> false
+                else -> {
+                    chips.update(model)
+                    pref.set(chips)
+                    notifyUpdate(it, chips)
+                    true
+                }
+            }
+        }
+
+    /**
+     * Method which provide the update functional.
+     * @param it ChipFilterModel instance.
+     * @param model ChipModel instance.
+     * @return if it was updated.
+     */
+    override fun update(it: ChipFilterModel, model: ChipModel): Boolean =
+        when(val pref = searchMap[it.id]) {
+            null -> false
+            else -> when(val chips = pref.get<ChipsModel>()) {
+                null -> false
+                else -> {
+                    chips.update(model)
+                    pref.set(chips)
+                    notifyUpdate(it, chips)
+                    true
+                }
             }
         }
 
@@ -98,5 +156,16 @@ internal object ChipsManagerImpl : ChipsManager {
      */
     override fun subscribe(filter: ChipFilterModel, delegate: SdkChipsCallbacks.ChipsUpdate) {
         this.notificationMap[filter.id] = WeakReference(delegate)
+    }
+
+    /**
+     * Method which provide the notify update.
+     * @param it ChipFilterModel filter model.
+     * @param items ChipsModel value.
+     */
+    private fun notifyUpdate(it: ChipFilterModel, items: ChipsModel? = null) {
+        val callback = notificationMap[it.id]?.get() ?: return
+        val result = items ?: searchMap[it.id]?.get<ChipsModel>() ?: return
+        callback.onChipsUpdate(it, result)
     }
 }

@@ -14,7 +14,7 @@ object ChipsConstants {
     /**
      * Instance of the [ChipFilterModel].
      */
-    val filter = ChipFilterModel("1.0.0", null, "192.168.0.0", "8080")
+    val filter = ChipFilterModel("1.0.2", null, "192.168.0.0", "8080")
 
     /**
      * Instance of the [ChipsModel].
@@ -41,6 +41,14 @@ object ChipsConstants {
                 icon = null,
                 text = android.R.string.paste_as_plain_text,
                 chips = setOf(
+                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
+                    ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
                     ChipModel(android.R.drawable.ic_delete, android.R.string.ok, "1.0.0"),
                     ChipModel(android.R.drawable.ic_menu_compass, android.R.string.paste, "1.0.0"),
                 )

@@ -4,8 +4,10 @@
     <color name="sdk_chip_filter_background">#33FFFFFF</color>
     <color name="sdk_chip_main">#9861ba</color>
     <color name="sdk_chip_main_50">#809861BA</color>
+    <color name="sdk_chip_main_10">#1A9861BA</color>
     <color name="sdk_chip_main_background">#009861BA</color>
     <color name="sdk_chip_main_background_selected">#1A9861BA</color>
     <color name="sdk_chips_background">#000000</color>
     <color name="sdk_chips_color_main_items">#1c1c1e</color>
+    <color name="sdk_chip_black_to_white">#FFFFFF</color>
 </resources>

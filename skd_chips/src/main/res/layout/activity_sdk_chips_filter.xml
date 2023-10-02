@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_8"
             android:layout_marginVertical="@dimen/dimen_8"
-            android:background="@drawable/drawable_sdk_chips_material_card_4">
+            android:background="@drawable/drawable_sdk_chips_material_card">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/labelHeaderText"
@@ -49,15 +49,12 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:id="@+id/view_items"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_86"
-                    android:background="@drawable/drawable_sdk_chips_material_card_4">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_1000" />
-                </LinearLayout>
+                    android:background="@android:color/transparent"/>
 
             </androidx.core.widget.NestedScrollView>
 
