@@ -18,8 +18,8 @@ import com.artlite.skd.chips.facade.models.createId
  */
 class ChipSectionModel(
     override val id: String,
-    @DrawableRes override val icon: Int? = null,
-    @StringRes override val text: Int,
+    @DrawableRes override var icon: Int? = null,
+    @StringRes override var text: Int,
     val chips: Set<ChipModel>
 ): Identifiable, Displayable, Expandable {
     override var isExpanded: Boolean = false

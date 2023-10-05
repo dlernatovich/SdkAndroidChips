@@ -34,9 +34,11 @@ internal object ChipsManagerImpl : ChipsManager {
      * Method which provide the create functional.
      * @param context Context instance.
      */
-    override fun onCreate(context: Context) = when(val app = context as? Application) {
+    override fun onCreate(context: Context) = when (val app = context as? Application) {
         null -> Unit
-        else -> { appRef = WeakReference(app) }
+        else -> {
+            appRef = WeakReference(app)
+        }
     }
 
     /**
@@ -62,17 +64,19 @@ internal object ChipsManagerImpl : ChipsManager {
      * @return ChipsModel instance
      */
     override fun get(it: ChipFilterModel, default: ChipsModel): ChipsModel =
-        when(val pref = searchMap[it.id]) {
+        when (val pref = searchMap[it.id]) {
             null -> {
                 searchMap[it.id] = PreferenceModel(app, it, true)
                 get(it, default)
             }
-            else -> when(val model = pref.get<ChipsModel>()) {
+
+            else -> when (val model = pref.get<ChipsModel>()) {
                 null -> {
                     pref.set(default)
                     get(it, default)
                 }
-                else -> model
+
+                else -> compareAndGet(pref, model, default)
             }
         }
 
@@ -83,7 +87,7 @@ internal object ChipsManagerImpl : ChipsManager {
      * @return Boolean if it was set.
      */
     override fun set(it: ChipFilterModel, items: ChipsModel): Boolean =
-        when(val pref = searchMap[it.id]) {
+        when (val pref = searchMap[it.id]) {
             null -> false
             else -> {
                 pref.set(items)
@@ -99,7 +103,7 @@ internal object ChipsManagerImpl : ChipsManager {
      * @return if it was updated.
      */
     override fun update(it: ChipFilterModel, model: ChipsModel): Boolean =
-        when(val pref = searchMap[it.id]) {
+        when (val pref = searchMap[it.id]) {
             null -> false
             else -> {
                 pref.set(model)
@@ -115,9 +119,9 @@ internal object ChipsManagerImpl : ChipsManager {
      * @return if it was updated.
      */
     override fun update(it: ChipFilterModel, model: ChipSectionModel): Boolean =
-        when(val pref = searchMap[it.id]) {
+        when (val pref = searchMap[it.id]) {
             null -> false
-            else -> when(val chips = pref.get<ChipsModel>()) {
+            else -> when (val chips = pref.get<ChipsModel>()) {
                 null -> false
                 else -> {
                     chips.update(model)
@@ -135,9 +139,9 @@ internal object ChipsManagerImpl : ChipsManager {
      * @return if it was updated.
      */
     override fun update(it: ChipFilterModel, model: ChipModel): Boolean =
-        when(val pref = searchMap[it.id]) {
+        when (val pref = searchMap[it.id]) {
             null -> false
-            else -> when(val chips = pref.get<ChipsModel>()) {
+            else -> when (val chips = pref.get<ChipsModel>()) {
                 null -> false
                 else -> {
                     chips.update(model)
@@ -168,4 +172,57 @@ internal object ChipsManagerImpl : ChipsManager {
         val result = items ?: searchMap[it.id]?.get<ChipsModel>() ?: return
         callback.onChipsUpdate(it, result)
     }
+
+    /**
+     * Method which provide to compare and get chips model (in case if resources will be updated).
+     * @param pref PreferenceModel instance.
+     * @param model ChipsModel from shared preferences.
+     * @param default ChipsModel from default.
+     * @return ChipsModel instance.
+     */
+    private fun compareAndGet(
+        pref: PreferenceModel,
+        model: ChipsModel,
+        default: ChipsModel
+    ): ChipsModel {
+        var needUpdate = false
+        var chips = model
+        // Compare sections.
+        chips.sections.forEachIndexed { sectionIndex, chipSectionModel ->
+            // Find section.
+            val section = default.sections[sectionIndex]
+            // Compare icon.
+            if (chipSectionModel.icon != section.icon) {
+                needUpdate = true
+                chipSectionModel.icon = section.icon
+            }
+            // Compare text.
+            if (chipSectionModel.text != section.text) {
+                needUpdate = true
+                chipSectionModel.text = section.text
+            }
+            // Compare chips.
+            chipSectionModel.chips.forEachIndexed { chipIndex, chipModel ->
+                // Find chip.
+                val chip = section.chips.elementAt(chipIndex)
+                // Compare icon.
+                if (chipModel.icon != chip.icon) {
+                    needUpdate = true
+                    chipModel.icon = chip.icon
+                }
+                // Compare text.
+                if (chipModel.text != chip.text) {
+                    needUpdate = true
+                    chipModel.text = chip.text
+                }
+            }
+        }
+        // Update if needed.
+        if (needUpdate) {
+            pref.set(chips)
+        }
+        // Return chips.
+        return chips
+    }
+
 }

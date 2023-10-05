@@ -5,6 +5,8 @@
     <color name="sdk_chip_main">#9861ba</color>
     <color name="sdk_chip_main_50">#809861BA</color>
     <color name="sdk_chip_main_10">#1A9861BA</color>
+    <color name="sdk_chip_main_20">#339861BA</color>
+    <color name="sdk_chip_main_30">#4D9861BA</color>
     <color name="sdk_chip_main_background">#009861BA</color>
     <color name="sdk_chip_main_background_selected">#1A9861BA</color>
     <color name="sdk_chips_background">#000000</color>

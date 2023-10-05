@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dimen_8"
     android:background="@drawable/drawable_sdk_chips_material_card"
-    android:paddingHorizontal="@dimen/dimen_8"
+    android:paddingHorizontal="@dimen/dimen_16"
+    android:paddingVertical="@dimen/dimen_10"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -14,7 +15,6 @@
         android:id="@+id/view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/dimen_8"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center">
@@ -68,6 +68,7 @@
     <LinearLayout
         android:id="@+id/view_expanded"
         android:orientation="vertical"
+        android:layout_marginTop="@dimen/dimen_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -76,7 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_4"
-            android:layout_marginBottom="@dimen/dimen_8"
             app:flexWrap="wrap" />
 
     </LinearLayout>

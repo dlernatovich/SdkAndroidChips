@@ -123,6 +123,7 @@ class ChipsHeaderView @JvmOverloads constructor(
         val view = (it as? ItemSectionView)
         val model = view?.section
         if (model != null) {
+            playHaptic()
             model.clearSelected()
             items.update(model)
             ChipsManagerImpl.update(filter, items)

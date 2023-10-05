@@ -13,8 +13,8 @@ import com.artlite.skd.chips.core.SdkChips
  * @property text Int value.
  */
 interface Displayable {
-    @get:DrawableRes val icon: Int?
-    @get:StringRes val text: Int
+    @get:DrawableRes var icon: Int?
+    @get:StringRes var text: Int
     companion object
 }
 

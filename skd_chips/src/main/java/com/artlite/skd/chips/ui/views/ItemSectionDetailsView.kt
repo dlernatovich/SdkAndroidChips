@@ -127,6 +127,7 @@ internal class ItemSectionDetailsView @JvmOverloads constructor(
         }
 
         R.id.image_delete -> {
+            playHaptic()
             section.clearSelected()
             ChipsManagerImpl.update(filter, section)
             configure(filter, section)

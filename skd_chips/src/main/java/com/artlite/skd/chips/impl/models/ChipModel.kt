@@ -18,8 +18,8 @@ import com.artlite.skd.chips.facade.models.createId
  */
 class ChipModel(
     override val id: String,
-    @DrawableRes override val icon: Int?,
-    @StringRes override val text: Int,
+    @DrawableRes override var icon: Int?,
+    @StringRes override var text: Int,
     override val version: String,
 ) : Identifiable, Displayable, Versionable, Jsonable {
     var isSelected: Boolean = false

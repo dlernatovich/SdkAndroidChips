@@ -11,6 +11,7 @@ import com.artlite.skd.chips.facade.models.Configurable
 import com.artlite.skd.chips.facade.models.getIconDrawable
 import com.artlite.skd.chips.facade.models.getTextString
 import com.artlite.skd.chips.impl.managers.ChipsManagerImpl
+import com.artlite.skd.chips.impl.managers.HapticManagerImpl
 import com.artlite.skd.chips.impl.models.ChipFilterModel
 import com.artlite.skd.chips.impl.models.ChipModel
 import com.artlite.skd.chips.impl.models.ChipSectionModel
@@ -89,20 +90,24 @@ internal class ItemChipView @JvmOverloads constructor(
      * @param it ChipModel instance.
      */
     private fun onApplyInterface(it: ChipModel) {
+        // Get resources.
+        val res = context.resources
+        // Create transparent color.
+        var bg = ResourcesCompat.getColor(res, android.R.color.transparent, null)
+        // Get icon.
         val icon = it.getIconDrawable()
+        // Set icon.
         this.iChip.setImageDrawable(icon)
+        // Set name.
         this.lName.text = it.getTextString()
+        // Set on click listener.
         this.vContainer.setOnClickListener(this)
-        if (icon == null) {
-            this.iChip.visibility = GONE
-        } else {
-            this.iChip.visibility = VISIBLE
-        }
-        if (it.isSelected) {
-            vContainer.setCardBackgroundColor(ResourcesCompat.getColor(context.resources, R.color.sdk_chip_main_10, null))
-        } else {
-            vContainer.setCardBackgroundColor(ResourcesCompat.getColor(context.resources, android.R.color.transparent, null))
-        }
+        // Set visibility for icon image.
+        if (icon == null) { this.iChip.visibility = GONE } else { this.iChip.visibility = VISIBLE }
+        // Get selected background color.
+        if (it.isSelected) bg = ResourcesCompat.getColor(res, R.color.sdk_chip_main_30, null)
+        // Set background.
+        vContainer.setCardBackgroundColor(bg)
     }
 
     /**
@@ -110,6 +115,7 @@ internal class ItemChipView @JvmOverloads constructor(
      * @param it View instance.
      */
     override fun onClick(it: View?) {
+        this.playHaptic()
         this.model.switchSelected()
         ChipsManagerImpl.update(filter, model)
         this.onApplyInterface(model)
