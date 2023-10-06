@@ -21,8 +21,8 @@ class ChipModel(
     @DrawableRes override var icon: Int?,
     @StringRes override var text: Int,
     override val version: String,
-) : Identifiable, Displayable, Versionable, Jsonable {
     var isSelected: Boolean = false
+) : Identifiable, Displayable, Versionable, Jsonable {
 
     /**
      * Constructor with parameters

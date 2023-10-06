@@ -2,9 +2,7 @@ package com.artlite.skd.chips.ui.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatTextView
+import android.view.View.OnClickListener
 import androidx.core.view.children
 import com.artlite.skd.chips.core.SdkChips
 import com.artlite.skd.chips.facade.abs.SdkChipsCallbacks
@@ -20,7 +18,21 @@ import com.artlite.skd.chips.ui.activities.FilterActivity
 import com.artlite.skd.chips.ui.activities.show
 import com.artlite.skd.ships.R
 import com.google.android.flexbox.FlexboxLayout
-import java.time.Duration
+import java.lang.ref.WeakReference
+
+/**
+ * Delegate for the [ChipsHeaderView].
+ */
+interface ChipsHeaderViewDelegate {
+
+    /**
+     * Method which provide the action when chips view was updated.
+     * @param filter ChipFilterModel instance.
+     * @param chips ChipsModel instance.
+     */
+    fun chipsHeaderViewUpdated(filter: ChipFilterModel, chips: ChipsModel)
+
+}
 
 /**
  * View which provide to display chips header.
@@ -44,7 +56,17 @@ class ChipsHeaderView @JvmOverloads constructor(
     /** Instance of the [FlexboxLayout]. */
     private val viewFlexBox: FlexboxLayout by lazy { find(R.id.sdk_chips_flexbox_view) }
 
+    /** Instance of the [ItemFilterView]. */
     private val viewItemFilter by lazy { ItemFilterView(context) }
+
+    /** [WeakReference] of the [ChipsHeaderViewDelegate]. */
+    private var delegateRef: WeakReference<ChipsHeaderViewDelegate>? = null
+
+    /** Instance of the [ChipsHeaderViewDelegate]. */
+    private val delegate get() = delegateRef?.get()
+
+    /** [Int] value of the items count. */
+    private val count get() = viewFlexBox.childCount
 
     /** Get layout ID functional. */
     override fun getLayoutId(): Int = R.layout.view_sdk_chips_header
@@ -72,25 +94,34 @@ class ChipsHeaderView @JvmOverloads constructor(
      * @param filter ChipFilterModel instance.
      * @param chips ChipsModel instance.
      */
-    override fun onChipsUpdate(filter: ChipFilterModel, chips: ChipsModel): Unit =
-        when(viewFlexBox.childCount) {
-            0 -> {
-                this.viewItemFilter.setOnClickListener(onFilterClicked)
-                this.viewFlexBox.addView(viewItemFilter)
-                chips.sections.forEach {
-                    val view = ItemSectionView(context)
-                    view.configure(it)
-                    view.setOnClickListener(onSectionClicked)
-                    viewFlexBox.addView(view)
-                }
+    override fun onChipsUpdate(filter: ChipFilterModel, chips: ChipsModel): Unit = when (count) {
+        // Init view when item count is 0.
+        0 -> {
+            this.viewItemFilter.setOnClickListener(onFilterClicked)
+            this.viewFlexBox.addView(viewItemFilter)
+            chips.sections.forEach {
+                val view = ItemSectionView(context)
+                view.configure(it)
+                view.setOnClickListener(onSectionClicked)
+                viewFlexBox.addView(view)
             }
-            else -> {
-                this.items = chips
-                chips.sections.forEachIndexed { index, model ->
-                    (viewFlexBox.getChildAt(index + 1) as? ItemSectionView)?.configure(model)
-                }
+        }
+        // Update views.
+        else -> {
+            this.items = chips
+            chips.sections.forEachIndexed { index, model ->
+                (viewFlexBox.getChildAt(index + 1) as? ItemSectionView)?.configure(model)
             }
-        }.also { onUpdateVisibility() }
+        }
+    }.also { onUpdateVisibility() }.also { delegate?.chipsHeaderViewUpdated(filter, chips) }
+
+    /**
+     * Method which provide to set [ChipsHeaderViewDelegate].
+     * @param it ChipsHeaderViewDelegate instance.
+     */
+    fun setDelegate(it: ChipsHeaderViewDelegate) {
+        this.delegateRef = WeakReference(it)
+    }
 
     /**
      * Method which provide the visibility.
@@ -100,7 +131,7 @@ class ChipsHeaderView @JvmOverloads constructor(
             val view = it as? ItemSectionView
             val model = view?.section
             val selectedCount = model?.getSelectedCount() ?: 0
-            if (selectedCount > 0){
+            if (selectedCount > 0) {
                 view?.visibility = VISIBLE
             } else {
                 view?.visibility = GONE

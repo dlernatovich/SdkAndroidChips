@@ -47,6 +47,13 @@ fun ChipsModel.getChips(): List<ChipModel> = mutableListOf<ChipModel>().also { r
 }
 
 /**
+ * Method which provide to get the selected chips.
+ * @receiver ChipsModel receiver.
+ * @return List<ChipModel> array of the chips.
+ */
+fun ChipsModel.getSelectedChips() = getChips().filter { it.isSelected }
+
+/**
  * Method which provide to update of the chip model.
  * @receiver ChipsModel receiver.
  * @param it Array<out ChipModel> array of the [ChipModel].
