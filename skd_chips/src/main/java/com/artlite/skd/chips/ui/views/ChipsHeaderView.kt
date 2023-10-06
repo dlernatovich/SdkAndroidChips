@@ -158,7 +158,6 @@ class ChipsHeaderView @JvmOverloads constructor(
             model.clearSelected()
             items.update(model)
             ChipsManagerImpl.update(filter, items)
-            onChipsUpdate(filter, items)
         }
     }
 

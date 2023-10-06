@@ -20,9 +20,9 @@ class ChipSectionModel(
     override val id: String,
     @DrawableRes override var icon: Int? = null,
     @StringRes override var text: Int,
-    val chips: Set<ChipModel>
+    override var isExpanded: Boolean = false,
+    val chips: Set<ChipModel>,
 ): Identifiable, Displayable, Expandable {
-    override var isExpanded: Boolean = false
 
     /**
      * Constructor with parameters.
@@ -31,8 +31,13 @@ class ChipSectionModel(
      * @param chips Set<ChipModel> array of the [ChipModel].
      * @constructor
      */
-    constructor(icon: Int?, text: Int, chips: Set<ChipModel>) :
-            this(Identifiable.createId(), icon, text, chips)
+    constructor(icon: Int?, text: Int, chips: Set<ChipModel>) : this(
+        id = Identifiable.createId(),
+        icon = icon,
+        text = text,
+        isExpanded = false,
+        chips = chips
+    )
 
     /**
      * Method which provide the equals functional.

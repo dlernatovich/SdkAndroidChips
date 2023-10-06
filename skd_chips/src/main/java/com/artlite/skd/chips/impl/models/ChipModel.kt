@@ -31,8 +31,12 @@ class ChipModel(
      * @param version String value.
      * @constructor
      */
-    constructor(icon: Int?, text: Int, version: String) :
-            this(Identifiable.createId(), icon, text, version)
+    constructor(icon: Int?, text: Int, version: String) : this(
+        id = Identifiable.createId(),
+        icon = icon,
+        text = text,
+        version = version
+    )
 
     /**
      * Method which provide the equals functional.

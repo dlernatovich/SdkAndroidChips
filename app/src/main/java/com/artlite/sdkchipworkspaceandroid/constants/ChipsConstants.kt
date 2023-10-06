@@ -14,7 +14,7 @@ object ChipsConstants {
     /**
      * Instance of the [ChipFilterModel].
      */
-    val filter = ChipFilterModel("1.0.7", null, "192.168.0.0", "8080")
+    val filter = ChipFilterModel("1.0.9", null, "192.168.0.0", "8080")
 
     /**
      * Instance of the [ChipsModel].
@@ -22,8 +22,10 @@ object ChipsConstants {
     val chips: ChipsModel = ChipsModel(
         sections = listOf(
             ChipSectionModel(
+                id = "383a6bfc-6412-11ee-8c99-0242ac120002",
                 icon = null,
                 text = R.string.text_type,
+                isExpanded = true,
                 chips = setOf(
                     ChipModel(
                         id = "44f2fdbc-640f-11ee-8c99-0242ac120002",
@@ -48,8 +50,10 @@ object ChipsConstants {
                 )
             ),
             ChipSectionModel(
+                id = "4125921e-6412-11ee-8c99-0242ac120002",
                 icon = null,
                 text = R.string.text_schedule,
+                isExpanded = false,
                 chips = setOf(
                     ChipModel(
                         id = "5a8399e8-640f-11ee-8c99-0242ac120002",
